@@ -44,7 +44,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
     }
 
     @Override
-    public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
+    public Cliente consultarCliente(int docu) throws ExcepcionServiciosAlquiler {
         Cliente c=null;
         if(clientes.containsKey(docu)){
             c=clientes.get(docu);
