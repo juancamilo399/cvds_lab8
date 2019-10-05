@@ -14,6 +14,7 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Singleton
@@ -32,9 +33,9 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
-    public Cliente consultarCliente(int docu) throws ExcepcionServiciosAlquiler {
+    public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
         try {
-            return clienteDAO.load(docu);
+            return clienteDAO.consultarCliente(docu);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosAlquiler("Error al consultar el cliente con identificacion "+docu,e);
         }
@@ -42,7 +43,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public List<ItemRentado> consultarItemsCliente(long idcliente) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return consultarCliente(idcliente).getRentados();
     }
 
     @Override
@@ -58,15 +59,19 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     @Override
     public Item consultarItem(int id) throws ExcepcionServiciosAlquiler {
         try {
-            return itemDAO.load(id);
+            return itemDAO.consultarItem(id);
         } catch (PersistenceException ex) {
             throw new ExcepcionServiciosAlquiler("Error al consultar el item "+id,ex);
         }
     }
 
     @Override
-    public List<Item> consultarItemsDisponibles() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Item> consultarItemsDisponibles() throws ExcepcionServiciosAlquiler {
+        try {
+            return itemDAO.consultarItems();
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosAlquiler("Error al consultar los items ",ex);
+        }
     }
 
     @Override
@@ -77,7 +82,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     @Override
     public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
         try {
-            return tipoItemDAO.load(id);
+            return tipoItemDAO.consultarTipoItem(id);
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosAlquiler("Error al consultar el tipo de item "+id,e);
         }
@@ -85,12 +90,24 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            return tipoItemDAO.consultarTiposItem();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al consultar los tipos de item ",e);
+        }
     }
 
     @Override
     public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, numdias);
+        try {
+            clienteDAO.agregarItemRentadoACliente(docu,item.getId(),date,cal.getTime());
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al agregar el item"
+                    +item+" a los items rentados del cliente"+docu,e);
+        }
     }
 
     @Override
@@ -104,12 +121,16 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public long consultarCostoAlquiler(int iditem, int numdias) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return consultarItem(iditem).getTarifaxDia()*numdias;
     }
 
     @Override
     public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            itemDAO.actualizarTarifaItem(id,tarifa);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al actualizar  el item "+id,e);
+        }
     }
     @Override
     public void registrarItem(Item i) throws ExcepcionServiciosAlquiler {
@@ -121,7 +142,11 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
-    public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void vetarCliente(long docu, boolean vetado) throws ExcepcionServiciosAlquiler {
+        try {
+            clienteDAO.vetarCliente(docu,vetado?1:0);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al actualizar la informacion del cliente"+docu,e);
+        }
     }
 }

@@ -14,11 +14,12 @@ import edu.eci.cvds.samples.entities.Item;
 public interface ItemMapper {
     
     
-    public List<Item> consultarItems();        
+    public List<Item> consultarItem();
     
     public Item consultarItem(@Param("idit") int id);
     
     public void insertarItem(@Param("item") Item it);
 
+    public void actualizarTarifaItem(@Param("id") int id, @Param("tarifa") long tarifa);
         
 }

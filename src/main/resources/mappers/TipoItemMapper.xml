@@ -10,7 +10,11 @@
     </resultMap>
 
     <select id="getTipoItem" parameterType="map" resultMap="TipoItemResult" >
-        select id , descripcion from VI_TIPOITEM where id={#id};
+        select id , descripcion from VI_TIPOITEM
+        <if test="id != null">
+            where id= #{id}
+        </if>
+        ;
     </select>
     <insert id="addTipoItem" parameterType="map">
         insert into VI_TIPOITEM (descripcion) values({#tipo.id}.{#tipo.descripcion})
