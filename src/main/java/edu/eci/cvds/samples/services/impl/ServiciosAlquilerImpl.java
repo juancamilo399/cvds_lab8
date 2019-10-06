@@ -37,7 +37,10 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     @Override
     public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
         try {
-            return clienteDAO.consultarCliente(docu);
+            Cliente cliente =clienteDAO.consultarCliente(docu);
+            if (cliente==null) throw new ExcepcionServiciosAlquiler("El cliente no esta registrado");
+            else return cliente;
+
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosAlquiler("Error al consultar el cliente con identificacion "+docu,e);
         }
@@ -45,7 +48,9 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public List<ItemRentado> consultarItemsCliente(long idcliente) throws ExcepcionServiciosAlquiler {
-        return consultarCliente(idcliente).getRentados();
+        Cliente cliente = consultarCliente(idcliente);
+        if (cliente==null)throw new ExcepcionServiciosAlquiler("el cliente no esta registrado");
+        else return consultarCliente(idcliente).getRentados();
     }
 
     @Override
@@ -125,7 +130,10 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
     @Override
     public long consultarCostoAlquiler(int iditem, int numdias) throws ExcepcionServiciosAlquiler {
-        return consultarItem(iditem).getTarifaxDia()*numdias;
+        Item item=consultarItem(iditem);
+        if (item==null) throw new ExcepcionServiciosAlquiler("El item no existe");
+        else if(numdias<1) throw new ExcepcionServiciosAlquiler("el numero de dias debe ser mayor o igual a 1");
+        else return consultarItem(iditem).getTarifaxDia()*numdias;
     }
 
     @Override

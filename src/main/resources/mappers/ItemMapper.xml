@@ -38,8 +38,8 @@
         FROM VI_ITEMS as i
         left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
         <if test="idit != null">
-            where i.id=#{idit};
-        </if>;
+            where i.id = #{idit}
+        </if>
     </select>
     <update id="actualizarTarifaItem" parameterType="map">
         update VI_ITEMS set tarifaxdia=#{tarifa} where id=#{id}

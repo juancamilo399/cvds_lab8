@@ -22,10 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
+import edu.eci.cvds.samples.entities.Item;
+import edu.eci.cvds.samples.entities.TipoItem;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -74,13 +77,13 @@ public class MyBatisExample {
         System.out.println(cm.consultarCliente(4));
         System.out.println("----------------------------");
         //cm.agregarItemRentadoACliente(4,2 ,
-        //        new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
+        //       new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
         //        new SimpleDateFormat("yyyy/MM/dd").parse("2019/10/28"));
         //System.out.println(cm.consultarCliente(4));
         ItemMapper im=sqlss.getMapper(ItemMapper.class);
         //im.insertarItem(new Item(new TipoItem(1, "Videojuego" ),99,
-        //                "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
-        //                99,"Digital","99"));
+        //               "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
+        //               99,"Digital","99"));
         System.out.println(im.consultarItem());
         System.out.println("----------------------------");
         System.out.println(im.consultarItem(99));
