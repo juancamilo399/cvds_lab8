@@ -22,6 +22,7 @@
         #{item.genero},#{item.tipo.id});
     </insert>
 
+
     <select id="consultarItem" parameterType="map" resultMap="ItemResult">
         select
         i.id ,

@@ -17,7 +17,7 @@
         ;
     </select>
     <insert id="addTipoItem" parameterType="map">
-        insert into VI_TIPOITEM (descripcion) values({#tipo.id}.{#tipo.descripcion})
+        insert into VI_TIPOITEM (id,descripcion) values(#{tipo.id},#{tipo.descripcion})
     </insert>
 
                 

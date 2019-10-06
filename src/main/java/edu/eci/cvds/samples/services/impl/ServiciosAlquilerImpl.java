@@ -16,7 +16,7 @@ import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import org.mybatis.guice.transactional.Transactional;
 
 import java.sql.Date;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 @Singleton
@@ -30,8 +30,12 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     private TipoItemDAO tipoItemDAO;
 
     @Override
-    public int valorMultaRetrasoxDia(int itemId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public long valorMultaRetrasoxDia(int itemId)throws ExcepcionServiciosAlquiler {
+        try {
+            return  itemDAO.consultarItem(itemId).getTarifaxDia();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("El item no esta registrado");
+        }
     }
 
     @Override
@@ -59,7 +63,6 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
             return clienteDAO.consultarClientes();
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosAlquiler("Error al consultar clientes",e);
-
         }
     }
 
@@ -107,14 +110,29 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     @Override
     @Transactional
     public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DATE, numdias);
+        LocalDate actual=date.toLocalDate();
+        LocalDate entrega=actual.plusDays(numdias);
+        if(numdias<1)throw  new ExcepcionServiciosAlquiler("el numero de dias debe ser mayor o igual a 1");
+        if(consultarCliente(docu)==null)throw new ExcepcionServiciosAlquiler("El cliente no esta registrado");
+        if(consultarItem(item.getId())==null)throw new ExcepcionServiciosAlquiler("El item no esta registrado");
+        for (ItemRentado itemRentado:consultarCliente(docu).getRentados()) {
+            if (itemRentado.getItem().getId() == item.getId())
+                throw new ExcepcionServiciosAlquiler("Este item con id: " + item.getId() + " ya se encuentra rentado");
+        }
         try {
-            clienteDAO.agregarItemRentadoACliente(docu,item.getId(),date,cal.getTime());
+            clienteDAO.agregarItemRentadoACliente(docu,item.getId(),date,java.sql.Date.valueOf(entrega));
         } catch (PersistenceException e) {
             throw new ExcepcionServiciosAlquiler("Error al agregar el item"
                     +item+" a los items rentados del cliente"+docu,e);
+        }
+    }
+
+    @Override
+    public void registrarTipoItem(TipoItem tipoItem) throws ExcepcionServiciosAlquiler {
+        try {
+            tipoItemDAO.save(tipoItem);
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al insertar el tipo de Item "+tipoItem.getID(),e);
         }
     }
 

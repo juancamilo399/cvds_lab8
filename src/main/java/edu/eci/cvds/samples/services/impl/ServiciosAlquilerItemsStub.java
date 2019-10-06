@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
-    private static final int MULTA_DIARIA=5000;
+    private static final long MULTA_DIARIA=5000;
     private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
     private final Map<Long,Cliente> clientes;
@@ -39,7 +39,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
     }
 
     @Override
-    public int valorMultaRetrasoxDia(int itemId) {
+    public long valorMultaRetrasoxDia(int itemId)throws ExcepcionServiciosAlquiler {
         return MULTA_DIARIA;
     }
 
@@ -144,6 +144,16 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
         } else {
             throw new ExcepcionServiciosAlquiler("No existe el cliente con el documento " + docu);
         }
+    }
+
+    @Override
+    public void registrarTipoItem(TipoItem tipoitem) throws ExcepcionServiciosAlquiler {
+        if (!tipositems.containsKey(tipoitem.getID())) {
+            tipositems.put(tipoitem.getID(),tipoitem);
+        } else {
+            throw new ExcepcionServiciosAlquiler("El item " + tipoitem.getID() + " ya esta registrado.");
+        }
+
     }
 
     @Override
