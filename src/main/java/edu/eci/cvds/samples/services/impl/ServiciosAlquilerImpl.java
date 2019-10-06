@@ -13,6 +13,8 @@ import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
+import org.mybatis.guice.transactional.Transactional;
+
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -98,6 +100,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
+    @Transactional
     public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -111,6 +114,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
+    @Transactional
     public void registrarCliente(Cliente c) throws ExcepcionServiciosAlquiler {
         try {
             clienteDAO.save(c);
@@ -125,6 +129,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
+    @Transactional
     public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
         try {
             itemDAO.actualizarTarifaItem(id,tarifa);
@@ -133,6 +138,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         }
     }
     @Override
+    @Transactional
     public void registrarItem(Item i) throws ExcepcionServiciosAlquiler {
         try {
             itemDAO.save(i);
@@ -142,6 +148,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
     }
 
     @Override
+    @Transactional
     public void vetarCliente(long docu, boolean vetado) throws ExcepcionServiciosAlquiler {
         try {
             clienteDAO.vetarCliente(docu,vetado?1:0);
