@@ -86,6 +86,8 @@ public class MyBatisExample {
         //               99,"Digital","99"));
         System.out.println(im.consultarItem());
         System.out.println("----------------------------");
+        System.out.println(im.consultarDisponibles());
+        System.out.println("----------------------------");
         System.out.println(im.consultarItem(99));
         TipoItemMapper tp =sqlss.getMapper(TipoItemMapper.class);
         System.out.println("----------------------------");
