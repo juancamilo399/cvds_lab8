@@ -10,7 +10,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head> <title> Servicios cliente </title> </h:head>
+<h:head> 
+
+<title> Servicios cliente </title>
+<link rel="stylesheet" type="text/css" href="styleClient.css" />
+
+</h:head>
+
+	
+
+
 
 <h:body>
     <h:form id="Client_Form">
@@ -42,11 +51,12 @@
             </p:column>
 			
 			<f:facet name="footer">
-				<h:commandButton id="clisele" value="Ver" action="registroalquiler?faces-redirect = true"/>
+				<h:commandButton id="clisele"  value="Ver" action="registroalquiler?faces-redirect = true"/>
 			</f:facet>
         </p:dataTable>
+		
 
-        <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
+        <h:panelGrid id="grid" cellpadding="5" columns="2" class="panelCenter" style="margin-bottom:10px">
             <p:outputLabel for="Documento" value="Documento: " />
             <p:inputText id="Documento" type="long" binding="#{doc}" />
 
@@ -65,10 +75,10 @@
 			
 
         </h:panelGrid>
-        <br/>
-        <br/>
-        <p:commandButton update="Client_Form" actionListener="#{AlquilerItemsBean.registrarCliente(doc.value,name.value,tele.value,dir.value,mail.value)}" value="Registrar Cliente"/>
-
+        
+		<div class="divButton">
+			<p:commandButton update="Client_Form" class="Button" actionListener="#{AlquilerItemsBean.registrarCliente(doc.value,name.value,tele.value,dir.value,mail.value)}" value="Registrar Cliente"/>
+		</div>
     </h:form>
 </h:body>
 </html>
