@@ -14,8 +14,6 @@ import java.text.SimpleDateFormat;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -25,17 +23,14 @@ import org.junit.Assert;
 public class ServiciosAlquilerTest {
 
     @Inject
-    private SqlSession sqlSession;
 
-    ServiciosAlquiler serviciosAlquiler;
+    private ServiciosAlquiler serviciosAlquiler;
 
     public ServiciosAlquilerTest() {
         serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
     }
 
-    @Before
-    public void setUp() {
-    }
+
 
     @Test
     public void consultarCostoAlquilerItemNoExistenteTest(){
@@ -240,7 +235,7 @@ public class ServiciosAlquilerTest {
         for(int i = 0; i < 100; i += 10) {
             boolean r = false;
             try {
-                Cliente cliente = serviciosAlquiler.consultarCliente(i);
+                serviciosAlquiler.consultarCliente(i);
             } catch(ExcepcionServiciosAlquiler e) {
                 r = true;
             } catch(IndexOutOfBoundsException e) {
