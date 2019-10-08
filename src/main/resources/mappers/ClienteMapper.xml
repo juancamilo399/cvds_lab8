@@ -26,7 +26,7 @@
 		i.formatorenta  as ir_i_formatorenta,
 		i.genero  as ir_i_genero,
 
-		ti.id  as ir_i_tiid,
+		ti.id  as ir_i_ti_id,
 		ti.descripcion as ir_i_ti_descripcion
 
 		

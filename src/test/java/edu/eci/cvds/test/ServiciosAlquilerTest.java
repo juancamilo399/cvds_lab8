@@ -133,7 +133,7 @@ public class ServiciosAlquilerTest {
             ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
             Cliente cliente= new Cliente("cl",1,"123","abc","aa",false,itr);
             serviciosAlquiler.registrarCliente(cliente);
-            TipoItem tipo1=new TipoItem(0, "Videojuego");
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
             serviciosAlquiler.registrarTipoItem(tipo1);
             Item a = new Item(tipo1, 98,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
@@ -154,7 +154,7 @@ public class ServiciosAlquilerTest {
             ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
             Cliente cliente= new Cliente("cl",1,"123","abc","aa",false,itr);
             serviciosAlquiler.registrarCliente(cliente);
-            TipoItem tipo1=new TipoItem(0, "Videojuego");
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
             serviciosAlquiler.registrarTipoItem(tipo1);
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
@@ -177,7 +177,7 @@ public class ServiciosAlquilerTest {
             ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
             Cliente cliente= new Cliente("cl",1,"123","abc","aa",false,itr);
             serviciosAlquiler.registrarCliente(cliente);
-            TipoItem tipo1=new TipoItem(0, "Videojuego");
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
             serviciosAlquiler.registrarTipoItem(tipo1);
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
@@ -199,7 +199,7 @@ public class ServiciosAlquilerTest {
             ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
             Cliente cliente= new Cliente("cl",3,"123","abc","aa",false,itr);
             serviciosAlquiler.registrarCliente(cliente);
-            TipoItem tipo1=new TipoItem(0, "Videojuego");
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
             serviciosAlquiler.registrarTipoItem(tipo1);
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
@@ -220,7 +220,7 @@ public class ServiciosAlquilerTest {
             ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
             Cliente cliente= new Cliente("cl",8,"123","abc","aa",false,itr);
             serviciosAlquiler.registrarCliente(cliente);
-            TipoItem tipo1=new TipoItem(0, "Videojuego");
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
             serviciosAlquiler.registrarTipoItem(tipo1);
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
