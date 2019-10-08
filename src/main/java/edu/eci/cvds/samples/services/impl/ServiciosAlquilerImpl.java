@@ -92,14 +92,14 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         for (Cliente cliente:clientes) {
             ArrayList<ItemRentado> rentados = cliente.getRentados();
             for (ItemRentado item :rentados) {
-                if( item.getId()==iditem) {
+                if( item.getItem().getId()==iditem) {
                     LocalDate fechaFin=item.getFechafinrenta().toLocalDate();
                     LocalDate fechaEntrego=fechaDevolucion.toLocalDate();
                     long diasRetraso = ChronoUnit.DAYS.between(fechaFin, fechaEntrego);
                     if(diasRetraso<0){
                         return 0;
                     }
-                    return diasRetraso*valorMultaRetrasoxDia(item.getId());
+                    return diasRetraso*valorMultaRetrasoxDia(item.getItem().getId());
                 }
             }
         }

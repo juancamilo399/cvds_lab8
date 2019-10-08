@@ -43,7 +43,9 @@ public class ServiciosAlquilerTest {
         catch (ExcepcionServiciosAlquiler e ){
             Assert.assertEquals("El item no existe",e.getMessage());
         }
-        catch (Exception e){}
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
     @Test
@@ -57,7 +59,9 @@ public class ServiciosAlquilerTest {
         catch (ExcepcionServiciosAlquiler e ){
             Assert.assertEquals("el numero de dias debe ser mayor o igual a 1",e.getMessage());
         }
-        catch (Exception e){}
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
     @Test
@@ -68,7 +72,9 @@ public class ServiciosAlquilerTest {
                     99, "Digital", "99"));
             Assert.assertEquals(serviciosAlquiler.consultarCostoAlquiler(99, 1), 99);
         }
-        catch (Exception e){}
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
     @Test
@@ -79,14 +85,20 @@ public class ServiciosAlquilerTest {
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
                     99, "Digital", "99");
+            Item b = new Item(tipo1, 98,
+                    "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
+                    99, "Digital", "99");
+
             serviciosAlquiler.registrarItem(a);
+            serviciosAlquiler.registrarItem(b);
             ArrayList<Item> items = new ArrayList<Item>();
             items.add(a);
+            items.add(b);
 
             Assert.assertEquals(items.toString(), serviciosAlquiler.consultarItemsDisponibles().toString());
         }
         catch (Exception e){
-
+            System.out.println(e.getMessage());
         }
     }
 
@@ -118,6 +130,7 @@ public class ServiciosAlquilerTest {
             Assert.assertEquals("El cliente no esta registrado",e.getMessage());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -140,6 +153,7 @@ public class ServiciosAlquilerTest {
             Assert.assertEquals("El item no esta registrado",e.getMessage());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
     @Test
@@ -162,6 +176,7 @@ public class ServiciosAlquilerTest {
             Assert.assertEquals("Este item con id: 99 ya se encuentra rentado",e.getMessage());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
     @Test
@@ -183,6 +198,7 @@ public class ServiciosAlquilerTest {
             Assert.assertEquals("el numero de dias debe ser mayor o igual a 1",e.getMessage());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
     @Test
@@ -199,11 +215,12 @@ public class ServiciosAlquilerTest {
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
             LocalDate af =LocalDate.parse("2019-09-29");
-            itr.add(new ItemRentado(3,a, Date.valueOf(at), Date.valueOf(af)));
+            itr.add(new ItemRentado(5,a, Date.valueOf(at), Date.valueOf(af)));
             serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,3,a,1);
             Assert.assertEquals(itr.toString(),serviciosAlquiler.consultarCliente(3).getRentados().toString());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
     @Test
@@ -217,14 +234,41 @@ public class ServiciosAlquilerTest {
             Item a = new Item(tipo1, 99,
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
                     99, "Digital", "99");
+
+
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
             LocalDate af =LocalDate.parse("2019-09-29");
-            itr.add(new ItemRentado(1,a, Date.valueOf(at), Date.valueOf(af)));
+            itr.add(new ItemRentado(3,a, Date.valueOf(at), Date.valueOf(af)));
             serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,8,a,1);
             Assert.assertEquals(itr.toString(),serviciosAlquiler.consultarItemsCliente(8).toString());
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void consultarMultaAlquilerTest(){
+        try{
+            ArrayList<ItemRentado> itr=new ArrayList<ItemRentado>();
+            Cliente cliente= new Cliente("cl",20,"123","abc","aa",false,itr);
+            serviciosAlquiler.registrarCliente(cliente);
+            TipoItem tipo1=new TipoItem(1, "Videojuego");
+            serviciosAlquiler.registrarTipoItem(tipo1);
+            Item a = new Item(tipo1, 98,
+                    "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
+                    99, "Digital", "99");
+            serviciosAlquiler.registrarItem(a);
+            LocalDate at =LocalDate.parse("2019-09-28");
+            LocalDate af =LocalDate.parse("2019-09-29");
+            LocalDate mul =LocalDate.parse("2019-10-01");
+            itr.add(new ItemRentado(1,a, Date.valueOf(at), Date.valueOf(af)));
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,20,a,1);
+            Assert.assertEquals(99*2,serviciosAlquiler.consultarMultaAlquiler(98,Date.valueOf(mul)));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
