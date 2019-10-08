@@ -13,7 +13,7 @@
 <h:head> <title> Servicios cliente </title> </h:head>
 
 <h:body>
-    <h:form id="Cliente_form">
+    <h:form id="Client_Form">
 
         <p:dataTable var="cliente" value="#{AlquilerItemsBean.consultarClientes()}"
                      paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -50,7 +50,7 @@
             <p:inputText id="Nombre" type="String" binding="#{name}"/>
 
             <p:outputLabel for="Direccion" value="Direccion: "/>
-            <p:inputText id="Direccion" type="int" binding="#{dir}"/>
+            <p:inputText id="Direccion" type="String" binding="#{dir}"/>
 
             <p:outputLabel for="Telefono" value="Telefono: " />
             <p:inputText id="Telefono" type="String" binding="#{tele}"/>
@@ -63,7 +63,7 @@
         </h:panelGrid>
         <br/>
         <br/>
-        <p:commandButton update="Client_Form" actionListener="#{AlquilerItemsBean.regitrarCliente(doc.value,name.value,dir.value,tele.value,mail.tele)}" value="Registrar Cliente"/>
+        <p:commandButton update="Client_Form" actionListener="#{AlquilerItemsBean.registrarCliente(doc.value,name.value,tele.value,dir.value,mail.value)}" value="Registrar Cliente"/>
 
     </h:form>
 </h:body>
