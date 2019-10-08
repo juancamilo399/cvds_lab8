@@ -1,7 +1,7 @@
 package edu.eci.cvds.sampleprj.dao.mybatis;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+
 
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
@@ -9,7 +9,7 @@ import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
 
 import edu.eci.cvds.samples.entities.TipoItem;
-import java.sql.SQLException;
+
 import java.util.List;
 
 public class MyBATISTipoItemDAO implements TipoItemDAO{

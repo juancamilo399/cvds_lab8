@@ -1,12 +1,11 @@
 package edu.eci.cvds.test;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
+
 import java.time.LocalDate;
 import com.google.inject.Inject;
-import java.sql.SQLException;
-import java.sql.Statement;
-import edu.eci.cvds.sampleprj.dao.PersistenceException;
+
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.entities.TipoItem;
@@ -19,9 +18,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import org.junit.After;
 
-import java.sql.Date;
+
+
 
 public class ServiciosAlquilerTest {
 
@@ -118,7 +117,7 @@ public class ServiciosAlquilerTest {
                     99, "Digital", "99");
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,2,a,10);
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,2,a,10);
         }
         catch (ExcepcionServiciosAlquiler e){
             Assert.assertEquals("El cliente no esta registrado",e.getMessage());
@@ -139,8 +138,8 @@ public class ServiciosAlquilerTest {
                     "item99", "item99", new SimpleDateFormat("yyyy/MM/dd").parse("2019/09/28"),
                     99, "Digital", "99");
             LocalDate at =LocalDate.parse("2019-09-28");
-            LocalDate af =LocalDate.parse("2019-09-29");
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,1,a,1);
+
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,1,a,1);
         }
         catch (ExcepcionServiciosAlquiler e){
             Assert.assertEquals("El item no esta registrado",e.getMessage());
@@ -161,9 +160,8 @@ public class ServiciosAlquilerTest {
                     99, "Digital", "99");
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
-            LocalDate af =LocalDate.parse("2019-09-29");
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,1,a,1);
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,1,a,1);
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,1,a,1);
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,1,a,1);
         }
         catch (ExcepcionServiciosAlquiler e){
             Assert.assertEquals("Este item con id: 99 ya se encuentra rentado",e.getMessage());
@@ -184,8 +182,7 @@ public class ServiciosAlquilerTest {
                     99, "Digital", "99");
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
-            LocalDate af =LocalDate.parse("2019-09-29");
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,1,a,-1);
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,1,a,-1);
         }
         catch (ExcepcionServiciosAlquiler e){
             Assert.assertEquals("el numero de dias debe ser mayor o igual a 1",e.getMessage());
@@ -207,8 +204,8 @@ public class ServiciosAlquilerTest {
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
             LocalDate af =LocalDate.parse("2019-09-29");
-            itr.add(new ItemRentado(3,a,java.sql.Date.valueOf(at),java.sql.Date.valueOf(af)));
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,3,a,1);
+            itr.add(new ItemRentado(3,a, Date.valueOf(at), Date.valueOf(af)));
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,3,a,1);
             Assert.assertEquals(itr.toString(),serviciosAlquiler.consultarCliente(3).getRentados().toString());
         }
         catch (Exception e){
@@ -228,8 +225,8 @@ public class ServiciosAlquilerTest {
             serviciosAlquiler.registrarItem(a);
             LocalDate at =LocalDate.parse("2019-09-28");
             LocalDate af =LocalDate.parse("2019-09-29");
-            itr.add(new ItemRentado(1,a,java.sql.Date.valueOf(at),java.sql.Date.valueOf(af)));
-            serviciosAlquiler.registrarAlquilerCliente(java.sql.Date.valueOf(at) ,8,a,1);
+            itr.add(new ItemRentado(1,a, Date.valueOf(at), Date.valueOf(af)));
+            serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,8,a,1);
             Assert.assertEquals(itr.toString(),serviciosAlquiler.consultarItemsCliente(8).toString());
         }
         catch (Exception e){
@@ -252,7 +249,7 @@ public class ServiciosAlquilerTest {
 
             // Validate no Client was found;
             Assert.assertTrue(r);
-        };
+        }
     }
 
 
