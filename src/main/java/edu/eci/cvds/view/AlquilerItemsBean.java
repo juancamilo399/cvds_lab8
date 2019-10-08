@@ -1,5 +1,6 @@
 package edu.eci.cvds.view;
 
+import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
@@ -12,6 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
 
+import java.sql.Date;
+
 
 
 @ManagedBean(name="AlquilerItemsBean")
@@ -21,6 +24,7 @@ public class AlquilerItemsBean extends BasePageBean {
     @Inject
     private ServiciosAlquiler serviciosAlquiler;
     private Cliente selectedCliente;
+	private long costo;
     public List<Cliente> consultarClientes(){
         List<Cliente> clientes = null;
         try{
@@ -51,6 +55,40 @@ public class AlquilerItemsBean extends BasePageBean {
 
     public Cliente getSelectedCliente(){
         return selectedCliente;
+    }
+	
+	
+	public long consultarMulta(Item it) {
+		long multa = 0;
+		try{
+			multa= serviciosAlquiler.consultarMultaAlquiler(it.getId(),new Date(System.currentTimeMillis()));
+		}
+		catch(ExcepcionServiciosAlquiler e){
+            setErrorMessage(e);
+        }
+		return multa;
+    }
+	
+	
+	public void registrarAlquilerCliente(int id,int numDiasAlquilar){
+        try{
+            Item item = serviciosAlquiler.consultarItem(id);
+            serviciosAlquiler.registrarAlquilerCliente(new Date(System.currentTimeMillis()),selectedCliente.getDocumento(),item,numDiasAlquilar);
+        }catch(ExcepcionServiciosAlquiler e){
+            setErrorMessage(e);
+        }
+    }
+	
+	public void consultarCosto(int id, int numDiasAlquilar){
+        try {
+            costo = serviciosAlquiler.consultarCostoAlquiler(id, numDiasAlquilar);
+        } catch (ExcepcionServiciosAlquiler e){
+            setErrorMessage(e);
+        }
+    }
+	
+	public long getCosto(){
+        return costo;
     }
 
     private void setErrorMessage(Exception e){

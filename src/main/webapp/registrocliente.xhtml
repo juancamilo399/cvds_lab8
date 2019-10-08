@@ -40,6 +40,10 @@
             <p:column headerText="Vetado">
                 <h:outputText value="#{cliente.isVetado()}" />
             </p:column>
+			
+			<f:facet name="footer">
+				<h:commandButton id="clisele" value="Ver" action="registroalquiler?faces-redirect = true"/>
+			</f:facet>
         </p:dataTable>
 
         <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
@@ -58,7 +62,7 @@
             <p:outputLabel for="Email" value="Email: " />
             <p:inputText id="Email" type="String" binding="#{mail}"/>
 
-
+			
 
         </h:panelGrid>
         <br/>

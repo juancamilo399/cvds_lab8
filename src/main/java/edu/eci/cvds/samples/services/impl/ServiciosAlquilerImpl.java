@@ -106,6 +106,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
         throw  new ExcepcionServiciosAlquiler("El item"+iditem+"no se encuentra rentado");
     }
 
+
     @Override
     public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
         try {

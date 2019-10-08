@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!--
+        To change this license header, choose License Headers in Project Properties.
+        To change this template file, choose Tools | Templates
+        and open the template in the editor.
+        -->
+        <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head> <title> Servicio de Alquiler </title> </h:head>
+
+<h:body>
+    <h:form id="Alquiler_Form">
+        
+        <p:dataTable var="itrent" value="#{AlquilerItemsBean.getSelectedCliente().rentados}"
+					 paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rows="10">
+			<f:facet name="header">
+                Items Alquilados
+            </f:facet>
+            <p:column headerText="Item Rentado">
+                <h:outputText value="#{itrent.item.nombre}"/>
+            </p:column>
+			
+			<p:column headerText="Multa">
+                <h:outputText value="#{AlquilerItemsBean.consultarMulta(itrent.item)}"/>
+            </p:column>
+			
+            
+			
+        </p:dataTable>
+
+        <br/>
+        <p:outputLabel style="font-size: 25px"><strong>Alquilar Item</strong></p:outputLabel>
+        
+		<h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
+         
+		 <p:outputLabel value="ItemID"/> 
+		 <p:inputText id="itid" type="int" binding="#{itid}"/> 
+
+           <p:outputLabel value="Dias"/> 
+		   <p:inputText id="ndias" type="int" binding="#{dias}"/> 
+
+           <p:outputLabel value="Costo: "/> 
+		   <p:outputLabel value="#{AlquilerItemsBean.costo}"/>
+		   <p:commandButton value="Consular costo" action="#{AlquilerItemsBean.consultarCosto(itid.value,dias.value)}" update="Alquiler_Form"/>
+        
+			<h:commandButton value="Alquilar" action="registrocliente?faces-redirect = true" style="font-size: 20px">
+                <f:actionListener binding="#{AlquilerItemsBean.registrarAlquilerCliente(itid.value,dias.value)}"/>
+            </h:commandButton>
+			
+		 </h:panelGrid>
+		
+		
+
+
+
+
+
+    </h:form>
+</h:body>
+
+
+</html>
