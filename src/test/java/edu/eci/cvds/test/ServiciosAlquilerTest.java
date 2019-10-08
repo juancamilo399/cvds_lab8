@@ -266,6 +266,8 @@ public class ServiciosAlquilerTest {
             itr.add(new ItemRentado(1,a, Date.valueOf(at), Date.valueOf(af)));
             serviciosAlquiler.registrarAlquilerCliente(Date.valueOf(at) ,20,a,1);
             Assert.assertEquals(99*2,serviciosAlquiler.consultarMultaAlquiler(98,Date.valueOf(mul)));
+            Assert.assertEquals(0,serviciosAlquiler.consultarMultaAlquiler(98,Date.valueOf(af)));
+            Assert.assertEquals(0,serviciosAlquiler.consultarMultaAlquiler(98,Date.valueOf(at)));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
