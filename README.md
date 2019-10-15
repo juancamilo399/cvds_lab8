@@ -4,3 +4,5 @@
 [![CircleCI](https://circleci.com/gh/juancamilo399/cvds_lab8.svg?style=svg)](https://circleci.com/gh/juancamilo399/cvds_lab8)
 
 https://cvds-lab8.herokuapp.com/
+
+Juan Camilo Angel y Juan Camilo Rojas
